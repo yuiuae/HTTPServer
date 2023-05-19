@@ -16,9 +16,20 @@ type UserInfo struct {
 
 var usersTable = map[string]UserInfo{}
 
-func UserCreate(w http.ResponseWriter, r *http.Request) {
-	// Parse and decode the request body into a new `Credentials` instance
+// Create a struct that models the structure for a user creating
+// Request
+type CrRequest struct {
+	UserName string `json:"username"`
+	Password string `json:"password"`
+}
 
+// Response
+type CrResponse struct {
+	ID       string `json:"id"`
+	UserName string `json:"username"`
+}
+
+func handleUserCreate(w http.ResponseWriter, r *http.Request) {
 	req := &CrRequest{}
 	err := json.NewDecoder(r.Body).Decode(req)
 	fmt.Println("Test = ", req.UserName)
@@ -27,7 +38,7 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Bad request, empty username or password", 400)
 		return
 	}
-	// Salt and hash the password using the bcrypt algorithm
+	// Hash the password using the bcrypt algorithm
 	hashedPassword, err := hasher.HashPassword(req.Password)
 	if err != nil {
 		http.Error(w, "Internal Server Error (hash)", 500)
@@ -51,20 +62,15 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 	// We reach this point if the credentials we correctly stored and the default status of 200 is sent back
 }
 
-// Create a struct that models the structure for a user creating
-// Request
-type CrRequest struct {
+type LogRequest struct {
 	UserName string `json:"username"`
 	Password string `json:"password"`
 }
-
-// Response
-type CrResponse struct {
-	ID       string `json:"id"`
-	UserName string `json:"username"`
+type LogResponse struct {
+	URL string `json:"username"`
 }
 
-func UserLogin(w http.ResponseWriter, r *http.Request) {
+func handleUserLogin(w http.ResponseWriter, r *http.Request) {
 	req := &LogRequest{}
 	err := json.NewDecoder(r.Body).Decode(req)
 	if err != nil {
@@ -84,12 +90,4 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Internal Server Error (json Encoder)", 500)
 		return
 	}
-}
-
-type LogRequest struct {
-	UserName string `json:"username"`
-	Password string `json:"password"`
-}
-type LogResponse struct {
-	URL string `json:"username"`
 }

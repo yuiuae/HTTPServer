@@ -13,8 +13,8 @@ import (
 
 func main() {
 	// "UserCreate" and "CheckUser" are handler that we will implement
-	http.HandleFunc("/user", handlers.UserCreate)
-	http.HandleFunc("/user/login", handlers.UserLogin)
+	http.HandleFunc("/user", handlers.handleUserCreate)
+	http.HandleFunc("/user/login", handlers.handleUserLogin)
 	http.HandleFunc("/admin", handlers.UserAll)
 
 	// start the server on port 8000
