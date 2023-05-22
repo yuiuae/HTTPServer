@@ -10,7 +10,6 @@ documentation and does not have any functionality:)
 package handlers
 
 import (
-	"encoding/json"
 	"net/http"
 )
 
@@ -91,10 +90,10 @@ func UserCreate(w http.ResponseWriter, r *http.Request) {
 	// }
 	// // add new user to to user table
 	// usersTable[req.UserName] = UserInfo{hashedPassword, uid.String()}
-
-	req := &CrRequest{}
-	json.NewDecoder(r.Body).Decode(req)
-
+	/*
+		req := &CrRequest{}
+		json.NewDecoder(r.Body).Decode(req)
+	*/
 }
 
 // Create a struct that models the structure for a user login
@@ -138,10 +137,11 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 	// 	return
 	// }
 
-	req := &LogRequest{}
-	json.NewDecoder(r.Body).Decode(req)
-	url := "ws://fancy-chat.io/ws&token=one-time-token"
-	resp := &LogResponse{url}
-	json.NewEncoder(w).Encode(resp)
-
+	/*
+		req := &LogRequest{}
+		json.NewDecoder(r.Body).Decode(req)
+		url := "ws://fancy-chat.io/ws&token=one-time-token"
+		resp := &LogResponse{url}
+		json.NewEncoder(w).Encode(resp)
+	*/
 }
