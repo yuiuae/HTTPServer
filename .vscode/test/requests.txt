@@ -1,5 +1,5 @@
-curl -X POST localhost:8000/user -H 'Content-Type: application/json' -d '{"username":"login1","password":"password1"}'
+curl -X POST localhost:8080/user -H 'Content-Type: application/json' -d '{"username":"login1","password":"password1"}'
 
-curl localhost:8000/admin
+curl localhost:8080/admin
 
-for i in {1..6}; do curl http://localhost:8000/admin; done
+for i in {1..6}; do curl http://localhost:8080/admin; done
