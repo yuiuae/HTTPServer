@@ -11,7 +11,7 @@ import (
 func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
-		log.Fatal("$PORT must be set")
+		port = "8080"
 	}
 	// "UserCreate" and "CheckUser" are handler that we will implement
 	http.HandleFunc("/user", handlers.UserCreate)
